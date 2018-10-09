@@ -1,6 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
 import fetch from "cross-fetch";
+import {toast} from "react-toastify";
 export const addComment = (comment) => ({
     type: ActionTypes.ADD_COMMENT,
     payload: comment
@@ -205,6 +206,9 @@ export const postFeedback = (feedback) => (dispatch) => {
                 throw error;
             })
         .then(response => response.json())
-        .then(response => alert("Thanks for your feedback!\n"+JSON.stringify(response)))
+        .then(response => {
+            toast("submitted sussesfully",{type:"success"});
+            alert("Thanks for your feedback!\n"+JSON.stringify(response));
+        })
         .catch(error => { console.log('post comments', error.message); alert('Your feedback could not be posted\nError: ' + error.message); });
 };

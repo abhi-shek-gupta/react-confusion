@@ -4,7 +4,18 @@ import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/baseUrl';
 import {  Fade, Stagger } from 'react-animation-components';
 
-function RenderLeader({ leader }) {
+function RenderLeader({ leader, isLoading, errMess }) {
+    if (isLoading) {
+        return (
+            <Loading />
+        );
+    }
+    else if (errMess) {
+        return (
+            <h4>{errMess}</h4>
+        );
+    }
+
     if (leader) return (  
         <Fade in>      
         <Media tag="li">
@@ -29,7 +40,8 @@ function About(props) {
 
     const leaders = props.leaders.map((leader) => {
         return (
-            <RenderLeader leader={leader} key={leader.id}/>
+            <RenderLeader leader={leader} key={leader.id} isLoading={props.leaders.isLoading}
+                errMess={props.leaders.errMess} />
         );
     });
 
